@@ -9,33 +9,31 @@
 <!-- Netlify Identity Widget -->
 <script type="text/javascript" src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 <style>
+  /* This custom CSS ensures the header uses flexbox for proper alignment */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+  }
+
   /* This custom CSS styles the Netlify Identity widget button to match the navigation links */
-  [data-netlify-identity-menu] .netlify-identity-menu a,
-  [data-netlify-identity-menu] .netlify-identity-menu-button {
+  [data-netlify-identity-menu] a,
+  [data-netlify-identity-menu] button {
     font-family: inherit;
     font-size: 1rem;
     font-weight: 500;
-    color: #0b5fff; /* Matches the color of the links */
+    color: #0b5fff;
     text-decoration: none;
     border: none;
     background: transparent;
     cursor: pointer;
     padding: 1rem 0.5rem;
-    display: inline-block; /* Ensure it looks like a nav link */
   }
 
-  [data-netlify-identity-menu] .netlify-identity-menu a:hover,
-  [data-netlify-identity-menu] .netlify-identity-menu-button:hover {
-    color: #071029; /* Hover effect */
-  }
-
-  /* Style for when the user is logged in */
-  [data-netlify-identity-menu] .netlify-identity-menu {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    font-size: 1rem;
-    font-weight: 500;
+  [data-netlify-identity-menu] a:hover,
+  [data-netlify-identity-menu] button:hover {
+    color: #071029;
   }
 </style>
 </head>
@@ -51,7 +49,7 @@
       <a href="contact.html">Contact</a>
       <a href="disclaimer.html">Disclaimer</a>
     </nav>
-    <!-- Placeholder for the Netlify Identity widget, styled to match the nav links -->
+    <!-- Placeholder for the Netlify Identity widget -->
     <div data-netlify-identity-menu></div>
   </header>
 
@@ -107,9 +105,9 @@
 
   <!-- This is the login prompt, which will be shown when the user is logged out -->
   <section id="login-prompt" class="card" style="display: none; text-align: center;">
-    <h2>Restricted Access</h2>
+    <h2>Investment Club</h2>
     <p>Please log in to view the full portfolio content.</p>
-    <button onclick="netlifyIdentity.open()">Log In</button>
+    <button onclick="netlifyIdentity.open()" style="font-family: inherit; color: #fff; background-color: #0b5fff; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer;">Log In</button>
   </section>
 
   <footer class="footer">© Trade Winners — Educational content only.</footer>
@@ -181,17 +179,20 @@ const updateUI = (user) => {
         // User is logged out, hide the main content and show the login prompt
         mainContent.style.display = 'none';
         loginPrompt.style.display = 'block';
-
-        // Wait for the Netlify Identity widget to load, then change the button text
-        const observer = new MutationObserver((mutations, obs) => {
-          const loginButton = identityMenu.querySelector('a[data-action="login"]');
-          if (loginButton) {
-            loginButton.textContent = 'Investment Club';
-            obs.disconnect(); // Stop observing once we've found the button
-          }
-        });
-
-        observer.observe(identityMenu, { childList: true, subtree: true });
+        
+        // Wait for the Netlify Identity widget to load
+        if (netlifyIdentity) {
+            const observer = new MutationObserver((mutations, obs) => {
+              const loginLink = identityMenu.querySelector('a[href="#login"]');
+              const signupLink = identityMenu.querySelector('a[href="#signup"]');
+              if (loginLink) {
+                // Change the login link text
+                loginLink.textContent = 'Investment Club';
+                obs.disconnect(); // Stop observing once we've found the button
+              }
+            });
+            observer.observe(identityMenu, { childList: true, subtree: true });
+        }
     }
 };
 
