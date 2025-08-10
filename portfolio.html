@@ -6,6 +6,8 @@
 <title>Trade Winners — Portfolio</title>
 <link rel="stylesheet" href="style.css">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!-- Netlify Identity Widget -->
+<script type="text/javascript" src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 <body>
   <header class="header">
@@ -19,9 +21,11 @@
       <a href="contact.html">Contact</a>
       <a href="disclaimer.html">Disclaimer</a>
     </nav>
+    <!-- Placeholder for the Netlify Identity widget -->
+    <div data-netlify-identity-menu></div>
   </header>
 
-  <main class="main">
+  <main class="main" id="main-content">
     <section class="card">
       <h2>Portfolio Allocation</h2>
       <div style="display:flex;gap:20px;flex-wrap:wrap">
@@ -33,10 +37,10 @@
             <h3 style="margin:0 0 8px 0">Portfolio Snapshot</h3>
             <p style="margin:0;color:#6b7280">Performance YTD: <strong style="color:#0b5fff">+38.1%</strong></p>
             <h4 style="margin:12px 0 8px 0; color:#071029">Top 3 Holdings (by % of Portfolio):</h4>
-            <p style="margin:0;color:#6b7280">Rolls Royce: <strong style="color:#0b5fff">+807.79%</strong></p>
-            <p style="margin:0;color:#6b7280">Carnival: <strong style="color:#0b5fff">+91.09%</strong></p>
-            <p style="margin:0;color:#6b7280">Vanguard S&P 500 (Dist): <strong style="color:#0b5fff">+46.50%</strong></p>
-            </div>
+            <p style="margin:0;color:#6b7280"><a href="https://www.tradingview.com/symbols/LSE-RR/" target="_blank">Rolls Royce</a>: <strong style="color:#0b5fff">+807.79%</strong></p>
+            <p style="margin:0;color:#6b7280"><a href="https://www.tradingview.com/symbols/LSE-CCL/" target="_blank">Carnival</a>: <strong style="color:#0b5fff">+91.09%</strong></p>
+            <p style="margin:0;color:#6b7280"><a href="https://www.tradingview.com/symbols/AMEX-VUSA/" target="_blank">Vanguard S&P 500 (Dist)</a>: <strong style="color:#0b5fff">+46.50%</strong></p>
+          </div>
         </div>
       </div>
     </section>
@@ -55,7 +59,7 @@
           <div id="tv-mini-2"></div>
           <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
           {
-            "symbol": "LSE:RR", // Top performer by performance % (Rolls Royce)
+            "symbol": "LSE:RR",
             "width": "100%",
             "height": "220",
             "locale": "en",
@@ -64,35 +68,89 @@
           </script>
         </div>
         <p style="text-align:center; margin-top:15px;">
-          </p>
+          To view other top performing stocks, update the "symbol" in the script above. Top performers: RR.L (Rolls Royce), NVDA (Nvidia), RDDT (Reddit).
+        </p>
       </div>
     </section>
   </main>
 
+  <div id="login-prompt" style="display: none; padding: 20px; text-align: center;">
+    <p>Please log in to view the portfolio content.</p>
+  </div>
+
   <footer class="footer">© Trade Winners — Educational content only.</footer>
 
 <script>
-// Chart: Allocation (pie) - Top 7 holdings from CSV, rest grouped into 'Other'
-const allocCtx = document.getElementById('allocChart').getContext('2d');
-new Chart(allocCtx, {
-  type: 'doughnut',
-  data: {
-    labels:['Rolls Royce','Carnival','Vanguard S&P 500 (Dist)','Microsoft','Vanguard FTSE All-world High dividend yield','AMD','Alphabet','Other'],
-    datasets:[{data:[17.2,7.1,6.92,6.77,5.59,5.13,4.57,46.72],backgroundColor:['#0b5fff','#4caf50','#ffb020','#9e9e9e','#E040FB','#00BCD4','#FF9800','#795548']}]
-  },
-  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom'}}}
-});
+// Function to update the UI based on login status
+const updateUI = (user) => {
+    const mainContent = document.getElementById('main-content');
+    const loginPrompt = document.getElementById('login-prompt');
 
-// Chart: Performance (line)
-const growthCtx = document.getElementById('growthChart').getContext('2d');
-new Chart(growthCtx, {
-  type:'line',
-  data:{
-    labels:['2023','2024'], // Updated years
-    datasets:[{label:'Portfolio value',data:[20,55],borderColor:'#0b5fff',tension:0.3,fill:true,backgroundColor:'rgba(11,95,255,0.08)'}] // Updated data
-  },
-  options:{responsive:true,maintainAspectRatio:false,scales:{y:{beginAtZero:false}}}
-});
+    if (user) {
+        // User is logged in, show the main content
+        mainContent.style.display = 'block';
+        loginPrompt.style.display = 'none';
+        
+        // Render charts when the user is logged in
+        // Chart: Allocation (pie) - Top 7 holdings from CSV, rest grouped into 'Other'
+        const allocCtx = document.getElementById('allocChart').getContext('2d');
+        new Chart(allocCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Rolls Royce', 'Carnival', 'Vanguard S&P 500 (Dist)', 'Microsoft', 'Vanguard FTSE All-world High dividend yield', 'AMD', 'Alphabet', 'Other'],
+                datasets: [{
+                    data: [17.2, 7.1, 6.92, 6.77, 5.59, 5.13, 4.57, 46.72],
+                    backgroundColor: ['#0b5fff', '#4caf50', '#ffb020', '#9e9e9e', '#E040FB', '#00BCD4', '#FF9800', '#795548']
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
+
+        // Chart: Performance (line)
+        const growthCtx = document.getElementById('growthChart').getContext('2d');
+        new Chart(growthCtx, {
+            type: 'line',
+            data: {
+                labels: ['2023', '2024'],
+                datasets: [{
+                    label: 'Portfolio value',
+                    data: [20, 55],
+                    borderColor: '#0b5fff',
+                    tension: 0.3,
+                    fill: true,
+                    backgroundColor: 'rgba(11,95,255,0.08)'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: false
+                    }
+                }
+            }
+        });
+
+    } else {
+        // User is logged out, hide the main content
+        mainContent.style.display = 'none';
+        loginPrompt.style.display = 'block';
+    }
+};
+
+// Listen for authentication state changes
+window.netlifyIdentity.on('init', updateUI);
+window.netlifyIdentity.on('login', updateUI);
+window.netlifyIdentity.on('logout', updateUI);
 </script>
 
 </body>
