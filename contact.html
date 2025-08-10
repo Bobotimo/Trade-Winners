@@ -23,24 +23,17 @@
   <main class="main">
     <section class="card">
       <h2>Contact Us</h2>
-      <p>If you'd like to reach out, drop your message below. This form is a demo — it doesn't send emails until you wire it to a backend or form service.</p>
+      <p>If you'd like to reach out, drop your message below.</p>
       <form action="#" onsubmit="alert('Form demo: no messages are sent.'); return false;">
-        <label for="name">Name</label>
-        <input id="name" name="name" required>
-        <label for="email">Email address</label>
-        <input id="email" name="email" type="email" required>
-        <label for="message">Message</label>
-        <textarea id="message" name="message" rows="5" required></textarea>
-        <button type="submit">Send message</button>
-      </form>
-    </section>
+        <label for="name">Name:</label>
+        <input id="name" name="name" required style="display: block; width: 100%; margin-bottom: 10px;">
 
-    <section class="card">
-      <h2>Subscribe</h2>
-      <p>Enter your email to receive occasional updates (demo only).</p>
-      <form action="#" onsubmit="alert('Subscribed (demo)'); return false;">
-        <input type="email" placeholder="you@example.com" required>
-        <div style="margin-top:10px"><button type="submit">Subscribe</button></div>
+        <label for="email">Email address:</label>
+        <input id="email" name="email" type="email" required style="display: block; width: 100%; margin-bottom: 10px;">
+
+        <label for="message">Message:</label>
+        <textarea id="message" name="message" rows="5" required style="display: block; width: 100%; margin-bottom: 20px;"></textarea>
+        <button type="submit">Send message</button>
       </form>
     </section>
   </main>
