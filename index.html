@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Trade Winners — Home</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="header" role="banner">
+    <a class="brand" href="index.html">
+      <img src="logo.png" alt="Trade Winners logo">
+      <span class="title">Trade Winners</span>
+    </a>
+    <nav class="nav" role="navigation" aria-label="Main">
+      <a href="index.html">Home</a>
+      <a href="portfolio.html">Portfolio</a>
+      <a href="contact.html">Contact</a>
+      <a href="disclaimer.html">Disclaimer</a>
+    </nav>
+  </header>
+
+  <main class="main" role="main">
+    <section class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap">
+        <div style="flex:1;min-width:220px">
+          <h1>Welcome to Trade Winners</h1>
+          <p>Professional-looking learning resources, market snapshots and portfolio visualisations — built to be clear and easy-to-use. This platform provides educational information only and is not investment advice.</p>
+          <p style="margin-top:10px"><span class="kv">Tip:</span> Explore the Portfolio page for sample charts and the Market Overview widget.</p>
+        </div>
+        <div style="width:420px;">
+          <div class="chart-box" aria-hidden="true" style="min-height:120px;display:flex;align-items:center;justify-content:center">
+            <div style="text-align:center;color:#0b1320">Market Snapshot</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Market Overview</h2>
+      <div style="max-width:820px">
+        <!-- TradingView widget -->
+        <div class="tradingview-widget-container">
+          <div id="tv-mini"></div>
+          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+          {
+            "symbol": "NASDAQ:AAPL",
+            "width": "100%",
+            "height": "220",
+            "locale": "en",
+            "dateRange": "12M"
+          }
+          </script>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Why this style?</h2>
+      <p>This layout draws inspiration from professional financial sites (clean header, clear typographic hierarchy) and trading platforms (useful widgets and charts). The result is designed to be readable, trustworthy and approachable.</p>
+    </section>
+
+    <div class="card" style="text-align:center;font-size:13px;color:#6b7280">Built for demo — upload the site files to GitHub Pages to view online.</div>
+  </main>
+
+  <footer class="footer">© Trade Winners — Educational content only. Not financial advice.</footer>
+</body>
+</html>

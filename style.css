@@ -1,0 +1,127 @@
+/* Professional Trade Winners styles - fixed header, card layout, responsive */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Open+Sans:wght@300;400;600&display=swap');
+
+:root{
+  --bg:#0f1720;
+  --card:#ffffff;
+  --muted:#6b7280;
+  --accent:#0b5fff;
+  --header-height:72px;
+}
+
+*{box-sizing:border-box}
+
+html,body{
+  height:100%;
+  margin:0;
+  background:var(--bg);
+  font-family:'Open Sans',sans-serif;
+  color:#0b1320;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+/* Fixed header */
+.header {
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  height:var(--header-height);
+  background:var(--card);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:10px 28px;
+  box-shadow:0 6px 18px rgba(2,6,23,0.15);
+  z-index:1000;
+}
+
+.brand {
+  display:flex;
+  align-items:center;
+  gap:14px;
+  text-decoration:none;
+}
+
+.brand img{
+  height:44px;
+  width:auto;
+  display:block;
+}
+
+.brand .title{
+  font-family:'Montserrat',sans-serif;
+  font-weight:700;
+  color:#071029;
+  font-size:18px;
+  letter-spacing:0.2px;
+}
+
+.nav {
+  display:flex;
+  gap:18px;
+  align-items:center;
+}
+
+.nav a{
+  color: #071029;
+  text-decoration:none;
+  font-weight:600;
+  padding:8px 10px;
+  border-radius:6px;
+  transition: all .15s ease;
+}
+
+.nav a:hover{
+  background:rgba(11,95,255,0.08);
+  color:var(--accent);
+  transform:translateY(-1px);
+}
+
+/* Main container respects header height */
+.main {
+  max-width:1100px;
+  margin: calc(var(--header-height) + 30px) auto 80px auto;
+  padding:0 20px;
+}
+
+/* Card */
+.card{
+  background:var(--card);
+  border-radius:10px;
+  padding:22px;
+  box-shadow:0 8px 28px rgba(2,6,23,0.12);
+  margin-bottom:26px;
+}
+
+/* Headings */
+h1,h2{font-family:'Montserrat',sans-serif;color:#071029;margin:0}
+h2{font-size:20px;margin-bottom:10px}
+p{color:var(--muted);margin:0 0 12px 0;line-height:1.6}
+
+/* Grid for hero */
+.hero-grid{
+  display:grid;
+  grid-template-columns: 1fr 420px;
+  gap:22px;
+  align-items:start;
+}
+
+@media (max-width:900px){
+  .hero-grid{grid-template-columns:1fr}
+  .nav{display:none} /* simple mobile: hide nav (we keep it simple) */
+}
+
+/* Chart container */
+.chart-box{background:#fbfdff;border-radius:8px;padding:12px}
+
+/* Footer */
+.footer{
+  color:var(--muted);
+  text-align:center;
+  padding:30px 20px;
+}
+
+/* Small util */
+.kv{font-weight:600;color:#071029}
