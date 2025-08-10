@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="style.css">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<!-- Netlify Identity widget -->
+<!-- Netlify Identity Widget -->
 <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 
 <style>
@@ -31,7 +31,7 @@
     margin: 0 10px;
     text-decoration: none;
     font-weight: 500;
-    font-family: inherit; /* match site font */
+    font-family: inherit; /* Match rest of site */
     font-size: 1rem;
     color: inherit;
     background: none;
@@ -55,7 +55,6 @@
       <a href="portfolio.html">Portfolio</a>
       <a href="contact.html">Contact</a>
       <a href="disclaimer.html">Disclaimer</a>
-      <!-- Matches the look of nav links -->
       <button id="investment-club-btn">Investment Club</button>
     </nav>
   </header>
@@ -129,9 +128,11 @@
   }
 
   waitForWidget().then(netlifyIdentity => {
+    // Always use your site API URL to avoid the "Failed to load settings" error
     netlifyIdentity.init({ APIUrl: apiUrl });
 
     const btn = document.getElementById('investment-club-btn');
+
     function updateButtonLabel(user) {
       btn.textContent = user ? 'Log Out' : 'Investment Club';
     }
@@ -188,4 +189,3 @@ new Chart(growthCtx, {
 
 </body>
 </html>
-
